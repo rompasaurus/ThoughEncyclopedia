@@ -1,0 +1,119 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+for details on configuring this project to bundle and minify static web assets. */
+body {
+    margin: 0;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#navbar {
+    overflow: hidden;
+    background-color: grey;
+    width: 100%;
+}
+
+.Site_Logo {
+    text-align: center;
+    margin-right: 200px;
+}
+
+#navbar a {
+    float: left;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+.Ruminations {
+    padding-right: 200px;
+}
+
+.Right_Sidebar {
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: darkgray;
+    padding-top: 50px;
+    height: 100%;
+    /*position: relative;*/
+    overflow: hidden;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+}
+    .Right_Sidebar::-webkit-scrollbar { /* WebKit */
+        width: 0;
+        height: 0;
+    }
+
+.Right_Sidebar a {
+    padding: 30px 8px 10px 10px;
+    text-decoration: none;
+    font-size: 16px;
+    color: black;
+    display: block;
+}
+
+.content {
+    padding-top: 20px;
+    padding 16px;
+    margin-left: 24px;
+    margin-right: 220px; /* Same as the width of the right and left sidebar */
+}
+
+#navbar a:hover {
+    background-color: white;
+    color: green;
+}
+
+#navbar a.active {
+    background-color: green;
+    color: white;
+}
+
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+    /* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+    .sticky + .content {
+        padding-top: 60px;
+    }
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
