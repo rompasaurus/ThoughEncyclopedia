@@ -19,18 +19,18 @@ namespace ThoughtEncyclopedia.Data
             {
                 return;
             }
-            string[] roles = new string[] { "Owner", "Administrator", "Manager", "Editor", "Buyer", "Business", "Seller", "Subscriber" };
+            //string[] roles = new string[] { "Owner", "Administrator", "Manager", "Editor", "Buyer", "Business", "Seller", "Subscriber" };
 
-            //Roles not yet initialized in startup
-            foreach (string role in roles)
-            {
-                var roleStore = new RoleStore<IdentityRole>(context);
+            ////Roles not yet initialized in startup
+            //foreach (string role in roles)
+            //{
+            //    var roleStore = new RoleStore<IdentityRole>(context);
 
-                if (!context.Roles.Any(r => r.Name == role))
-                {
-                    roleStore.CreateAsync(new IdentityRole(role));
-                }
-            }
+            //    if (!context.Roles.Any(r => r.Name == role))
+            //    {
+            //        roleStore.CreateAsync(new IdentityRole(role));
+            //    }
+            //}
             Console.WriteLine("Seeeeeding");
             var User1 = new ApplicationUser
             {
@@ -59,18 +59,18 @@ namespace ThoughtEncyclopedia.Data
 
             };
             context.Users.Add(User1);
-            context.SaveChanges();
+            
 
             var Categories = new Category[]
             {
-                new Category{CategoryId=0,CategoryName="Personal Thoughts",Description="Thoughts That are personal to me"},
-                new Category{CategoryId=1,CategoryName="Project Thoughts",Description="Thoughts related to personal projects"}
+                new Category{CategoryId=0,CategoryName="Personal Thoughts",Description="Thoughts That are personal to me"}
+              //  new Category{CategoryId=1,CategoryName="Project Thoughts",Description="Thoughts related to personal projects"}
             };
             foreach (Category c in Categories)
             {
                 context.Categories.Add(c);
             }
-            context.SaveChanges();
+            
 
             var Topics = new Topic[]
             {
