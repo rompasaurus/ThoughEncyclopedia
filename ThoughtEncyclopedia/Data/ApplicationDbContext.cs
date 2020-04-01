@@ -14,7 +14,17 @@ namespace ThoughtEncyclopedia.Data
         {
     }
         public DbSet<Topic> Topics { get; set; }
+        public DbSet<Thought> Thoughts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            //modelBuilder.Entity<ApplicationUser>().ToTable("User");
+            modelBuilder.Entity<Topic>().ToTable("Topic");
+            modelBuilder.Entity<Thought>().ToTable("Thoughts");
+            modelBuilder.Entity<Category>().ToTable("Categories");
+            modelBuilder.Entity<Comment>().ToTable("Comments");
+        }
     }
 }

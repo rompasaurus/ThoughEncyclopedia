@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,18 +10,20 @@ namespace ThoughtEncyclopedia.Models
     public class Topic
     {
         public int TopicID { get; set; }
-        public Category Category { get; set; }
         public int ParentID { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateModified { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.Now;
+        public DateTime DateModified { get; set; } = DateTime.Now;
         public String Title { get; set; }
-        public int UpvoteCount { get; set; }
-        public int DownvoteCount { get; set; }
-        public int LikeCount { get; set; }
-        public int KnowlegeTypeID { get; set; }
-        public String Content { get; set; }
-        public IdentityUser UserID { get; set; }
-        public int ViewCount { get; set; }
+        public int UpvoteCount { get; set; } = 0;
+        public int DownvoteCount { get; set; } = 0;
+        public int LikeCount { get; set; } = 0;
+        public int KnowlegeTypeID { get; set; } = 0;
+        public String Description { get; set; }
+        [Required]
+        public ApplicationUser User { get; set; }
+        [Required]
+        public Category Category { get; set; }
+        public int ViewCount { get; set; } = 0;
 
 
     }
