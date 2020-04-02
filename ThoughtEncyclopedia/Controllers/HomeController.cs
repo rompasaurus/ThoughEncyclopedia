@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ThoughtEncyclopedia.Data;
@@ -38,9 +40,11 @@ namespace ThoughtEncyclopedia.Controllers
         [Authorize]
         public IActionResult Ruminate()
         {
+            string currentUserId = User.Identity.GetUserId();
             ViewData["Title"] = "Ruminations";
-            ViewData["Thoughts"]= _context.Thoughts.ToList();
-            ViewData["Topics"] = _context.Topics.ToList();
+            ViewData["Thoughts"]= _context.Thoughts.Select(x => x.User.Id == currentUserId);
+            ViewData["Topics"] = _context.Topics.Select(x => x.User.Id == currentUserId);
+            var currentUser = _context.Users.FirstOrDefault(x => x.Id == currentUserId);
 
             return View();
         }
