@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ThoughtEncyclopedia.Data;
 using ThoughtEncyclopedia.Models;
 
 namespace ThoughtEncyclopedia.Controllers
@@ -13,9 +14,10 @@ namespace ThoughtEncyclopedia.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ApplicationDbContext _context;
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
+            _context = context;
             _logger = logger;
         }
 
@@ -36,8 +38,9 @@ namespace ThoughtEncyclopedia.Controllers
         [Authorize]
         public IActionResult Ruminate()
         {
-            ViewData["Title"] = "Rumination";
-            ViewData["Message"] = "Ruminate here:";
+            ViewData["Title"] = "Ruminations";
+            ViewData["Thoughts"]= _context.Thoughts.ToList();
+            ViewData["Topics"] = _context.Topics.ToList();
 
             return View();
         }

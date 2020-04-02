@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ThoughtEncyclopedia.Models
 {
-    [NotMapped]
     public class ApplicationUser : IdentityUser
     {
         public int UserId { get; set; }

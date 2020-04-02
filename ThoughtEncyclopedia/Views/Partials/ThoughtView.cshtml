@@ -1,0 +1,22 @@
+﻿@model IEnumerable<ThoughtEncyclopedia.Models.Thought>
+
+<div class="Ruminations">
+    @foreach (var item in Model)
+    {
+        <div class="thought_snippet">
+            <h3 class="thought_content">
+                <a class="thought_content" asp-action="Edit" asp-route-id="@item.Topic.TopicID">
+                    @Html.DisplayFor(modelItem => item.Topic.Title):
+                </a>
+            </h3>
+            <p class="topic_content">
+                <a class="thought_content" asp-action="Edit" asp-route-id="@item.ThoughtId"> @Html.DisplayFor(modelItem => item.ContentText)</a>
+            </p>
+            <a asp-action="Edit" asp-route-id="@item.ThoughtId">Edit</a>
+            <a asp-action="Delete" asp-route-id="@item.ThoughtId">Delete</a>
+        </div>
+    }
+    <p>
+        <a asp-action="Create">Add a Thought</a>
+    </p>
+</div>

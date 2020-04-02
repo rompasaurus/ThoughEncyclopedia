@@ -17,7 +17,7 @@ namespace ThoughtEncyclopedia.Models
         public int UpvoteCount { get; set; }
         public int DownvoteCount { get; set; }
         public int LikeCount { get; set; }
-        public IdentityUser UserId { get; set; }
+        public IdentityUser User { get; set; }
         public Topic Topic { get; set; }
     }
 }

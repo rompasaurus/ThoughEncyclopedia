@@ -10,14 +10,17 @@ namespace ThoughtEncyclopedia.Models
     public class Comment
     {
         public int CommentId { get; set; }
-        public int UserId { get; set; }
-        public int ParentCommentId { get; set; }
-        public int UpVoteCount { get; set; }
-        public int DownVoteCount { get; set; }
-        public int LikeCount { get; set; }
+        public string Text { get; set; }
+        public int UpVoteCount { get; set; } = 0;
+        public int DownVoteCount { get; set; } = 0;
+        public int LikeCount { get; set; } = 0;
         public DateTime DateCreated { get; set; } = DateTime.Now;
         public DateTime DateModified { get; set; } = DateTime.Now;
-        public IdentityUser UserID { get; set; }
-        public Thought Content { get; set; }
+        //indicates who created the comment
+        public IdentityUser User { get; set; }
+        //whichever these field are not null is what the comment is referencing
+        public Comment ParentCommentId { get; set; }
+        public Thought Thought { get; set; }
+        public Topic Topic { get; set; }
     }
 }

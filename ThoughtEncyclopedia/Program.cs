@@ -16,7 +16,6 @@ namespace ThoughtEncyclopedia
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-            Console.WriteLine("Seeeeedingsdgsdgsd");
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -24,7 +23,6 @@ namespace ThoughtEncyclopedia
                 {
                     var context = services.GetRequiredService<ApplicationDbContext>();
                     DbInitializer.Initialize(context);
-                    Console.WriteLine("Seeeeedinsdfsdgfsghsdsdgsdgsdgsdgsdgsdgsdgg");
                 }
                 catch (Exception ex)
                 {
