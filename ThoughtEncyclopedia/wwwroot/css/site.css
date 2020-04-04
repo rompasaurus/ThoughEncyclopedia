@@ -6,14 +6,25 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-a {
+.thought_content a {
     text-decoration: none;
     color: inherit;
 }
-a:hover {
+.thought_content a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.topic_content a {
+    text-decoration: none;
+    color: inherit;
+}
+
+    .topic_content a:hover {
         text-decoration: none;
         color: inherit;
     }
+
 
 #navbar {
     overflow: hidden;
@@ -73,6 +84,7 @@ a:hover {
     margin-left: 24px;
     margin-right: 220px; /* Same as the width of the right and left sidebar */
 }
+
 
 #navbar a:hover {
     background-color: white;

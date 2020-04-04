@@ -45,16 +45,13 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" style="font-size:small" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" style="font-size:small" asp-action="Ruminate">Ruminate</a></li>
+                    <li><a asp-area="" asp-controller="Ruminate" style="font-size:small" asp-action="Index">Ruminate</a></li>
                     <li><a asp-area="" asp-controller="Home" style="font-size:small" asp-action="About">About</a></li>
                 </ul>
                 <partial name="_LoginPartial" />
             </div>
         </div>
     </nav>
-    @*<partial name="_CookieConsentPartial" />*@
-
-
     <div class="container body-content" style="padding-top: 50px;">
         @RenderBody()
         <hr />

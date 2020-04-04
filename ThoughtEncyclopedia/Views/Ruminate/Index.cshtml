@@ -1,0 +1,11 @@
+﻿<style>
+    footer {
+        margin-left: 24px;
+        margin-right: 220px; /* Same as the width of the right and left sidebar */
+    }
+</style>
+
+<h2>@ViewData["Title"]</h2>
+@Html.Partial("~/Views/Partials/ThoughtView.cshtml", ViewData["Thoughts"])
+@Html.Partial("~/Views/Partials/TopicSidebarView.cshtml", ViewData["Topics"])
+

@@ -38,25 +38,6 @@ namespace ThoughtEncyclopedia.Controllers
             return View();
         }
 
-        [Authorize]
-        public IActionResult Ruminate()
-        {
-            string currentUserId = User.Identity.GetUserId();
-            Console.WriteLine(currentUserId);
-            ViewData["Title"] = "Ruminations";
-            var Thoughts = from thought in _context.Thoughts.Include(u => u.User).Include(t => t.Topic)
-                           where thought.User.Id == currentUserId
-                           select thought;
-            var Topics = from topic in _context.Topics.Include(u => u.User)
-                         where topic.User.Id == currentUserId
-                         select topic;
-            ViewData["Thoughts"] = Thoughts;
-            ViewData["Topics"] = Topics;
-            var currentUser = _context.Users.FirstOrDefault(x => x.Id == currentUserId);
-
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

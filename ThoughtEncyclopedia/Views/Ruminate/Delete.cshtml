@@ -1,0 +1,63 @@
+﻿@model ThoughtEncyclopedia.Models.Thought
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Thought</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ContentText)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ContentText)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateModified)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateModified)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ViewCount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ViewCount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpvoteCount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpvoteCount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DownvoteCount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DownvoteCount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LikeCount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LikeCount)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ThoughtId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
