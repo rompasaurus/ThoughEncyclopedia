@@ -19,7 +19,7 @@ namespace ThoughtEncyclopedia.Models
         public DateTime DateCreated { get; set; } = DateTime.Now;
         public DateTime DateModified { get; set; } = DateTime.Now;
 
-        //The Default of a Category will be set to 0 indiocating that the topic contents will be private
+        //The Default of a Category will be set to 0 indicating that the topic contents will be private
         [DefaultValue(0)]
         public PrivacyValue PrivacyValue { get; set; } = (PrivacyValue)0;
     }

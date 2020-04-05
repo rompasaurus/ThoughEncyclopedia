@@ -3,14 +3,14 @@
     <div class="Right_Sidebar">
         @foreach (var item in Model)
         {
-            <a asp-action="Edit" asp-route-id="@item.TopicID">@Html.DisplayFor(modelItem => item.Title)</a>
-            <a asp-action="Details" asp-route-id="@item.TopicID"> @Html.DisplayFor(modelItem => item.Description)</a>
+            <a asp-controller="Topics" asp-action="Edit" asp-route-id="@item.TopicID">@Html.DisplayFor(modelItem => item.Title)</a>
+            <a asp-controller="Topics" asp-action="Details" asp-route-id="@item.TopicID"> @Html.DisplayFor(modelItem => item.Description)</a>
 
                     @*<a asp-action="Edit" asp-route-id="@item.TopicID">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.TopicID">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.TopicID">Delete</a>*@
         }
         <p>
-            <a asp-action="Create">Create New Topic</a>
+            <a asp-controller="Topics"  asp-action="Create">Create New Topic</a>
         </p>
     </div>
