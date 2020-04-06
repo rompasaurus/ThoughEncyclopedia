@@ -48,6 +48,7 @@ namespace ThoughtEncyclopedia.Controllers
         // GET: Topics/Create
         public IActionResult Create()
         {
+            SetViewBagCategoryType(_context.Categories.First());
             return View();
         }
 
@@ -56,20 +57,30 @@ namespace ThoughtEncyclopedia.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description")] Topic topic)
+        public async Task<IActionResult> Create([Bind("Title,Description,Category")] Topic topic)
         {
             if (ModelState.IsValid)
             {
-               
                 topic.User = (ApplicationUser)User.Identity;
                 _context.Add(topic);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag["TopicCategories"] = _context.Categories.ToList();
+          
             return View(topic);
         }
-
+        private void SetViewBagCategoryType(Category selectedCategory)
+        {
+            IEnumerable<SelectListItem> CategoryItems =
+                from category in _context.Categories
+                select new SelectListItem
+                {
+                    Text = category.CategoryName.ToString(),
+                    Value = category.CategoryId.ToString(),
+                    Selected = category == selectedCategory,
+                };
+                ViewBag.TopicCategories = CategoryItems;
+        }
         // GET: Topics/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

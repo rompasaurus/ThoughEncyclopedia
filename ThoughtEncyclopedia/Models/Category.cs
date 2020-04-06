@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,7 +18,12 @@ namespace ThoughtEncyclopedia.Models
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string Description { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime DateCreated { get; set; } = DateTime.Now;
+
+        [ConcurrencyCheck]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateModified { get; set; } = DateTime.Now;
 
         //The Default of a Category will be set to 0 indicating that the topic contents will be private

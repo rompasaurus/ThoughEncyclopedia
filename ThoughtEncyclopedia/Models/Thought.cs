@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +14,8 @@ namespace ThoughtEncyclopedia.Models
         public int ThoughtId { get; set; }
         public string ContentText { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.Now;
+        [ConcurrencyCheck]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateModified { get; set; } = DateTime.Now;
         public int ViewCount { get; set; }
         public int UpvoteCount { get; set; }

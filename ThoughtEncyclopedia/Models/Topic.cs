@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +13,8 @@ namespace ThoughtEncyclopedia.Models
         public int TopicID { get; set; }
         public int ParentID { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.Now;
+        [ConcurrencyCheck]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateModified { get; set; } = DateTime.Now;
         public String Title { get; set; }
         public int UpvoteCount { get; set; } = 0;

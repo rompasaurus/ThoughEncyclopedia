@@ -92,6 +92,7 @@ namespace ThoughtEncyclopedia.Data
                 context.Comments.Add(c);
             }
             context.SaveChanges();
+            context.Dispose();
         }
 
     }
