@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ThoughtEncyclopedia.Data;
 using ThoughtEncyclopedia.Models;
@@ -16,17 +14,20 @@ namespace ThoughtEncyclopedia.Controllers
     public class RuminateController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public RuminateController(ApplicationDbContext context)
+        public RuminateController(ApplicationDbContext context, UserManager<IdentityUser> um)
         {
             _context = context;
+            _userManager = um;
         }
 
         // GET: Ruminate
         public async Task<IActionResult> Index()
         {
-            
-                string currentUserId = User.Identity.GetUserId();
+
+                var user = await _userManager.GetUserAsync(User);
+                string currentUserId = user.Id;// User.Identity.GetUserId();
                 Console.WriteLine(currentUserId);
                 ViewData["Title"] = "Ruminations";
                 var Thoughts = from thought in _context.Thoughts.Include(u => u.User).Include(t => t.Topic)
@@ -38,6 +39,7 @@ namespace ThoughtEncyclopedia.Controllers
                 ViewData["Thoughts"] = Thoughts;
                 ViewData["Topics"] = Topics;
                 var currentUser = _context.Users.FirstOrDefault(x => x.Id == currentUserId);
+
 
                 return View();
             

@@ -1,4 +1,4 @@
-﻿@model ThoughtEncyclopedia.Models.Topic
+﻿@model ThoughtEncyclopedia.Models.TopicView
 
 @{
     ViewData["Title"] = "Create";
@@ -23,12 +23,14 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
+                @Html.LabelFor(s => s.CategoryId)
+                @Html.DropDownListFor(s => s.CategoryId, Model.Categories)
+                @Html.ValidationMessageFor(s => s.CategoryId)
             </div>
-                @Html.DropDownList(Model.Category, ViewBag.TopicCategories as IEnumerable<SelectListItem>,new { htmlAttributes = new { @class = "form-control" } })
 
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
         </form>
     </div>
 </div>

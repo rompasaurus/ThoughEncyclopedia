@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +14,12 @@ namespace ThoughtEncyclopedia.Controllers
     public class TopicsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public TopicsController(ApplicationDbContext context)
+        public TopicsController(ApplicationDbContext context, UserManager<IdentityUser> um)
         {
             _context = context;
+            _userManager = um;
         }
 
         // GET: Topics
@@ -48,8 +49,9 @@ namespace ThoughtEncyclopedia.Controllers
         // GET: Topics/Create
         public IActionResult Create()
         {
-            SetViewBagCategoryType(_context.Categories.First());
-            return View();
+            var tpc = new TopicView();
+            tpc.Categories = GetCategoryOptions();
+            return View(tpc);
         }
 
         // POST: Topics/Create
@@ -57,29 +59,38 @@ namespace ThoughtEncyclopedia.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,Category")] Topic topic)
+        public async Task<IActionResult> Create([Bind("Title,Description,CategoryId")] TopicView topicView)
         {
             if (ModelState.IsValid)
             {
-                topic.User = (ApplicationUser)User.Identity;
+                //Businees logic needs its own classes
+                Topic topic = new Topic
+                {
+                    Title = topicView.Title,
+                    Description = topicView.Description,
+                    User = (ApplicationUser)await _userManager.GetUserAsync(User),
+                    Category = _context.Categories.Find(topicView.CategoryId)
+                };
+                    
                 _context.Add(topic);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
           
-            return View(topic);
+            return View(topicView);
         }
-        private void SetViewBagCategoryType(Category selectedCategory)
+        //Maps the categories available to the user insied a SelectListItem allows Dropdown to be created
+        private List<SelectListItem> GetCategoryOptions()
         {
-            IEnumerable<SelectListItem> CategoryItems =
-                from category in _context.Categories
-                select new SelectListItem
-                {
-                    Text = category.CategoryName.ToString(),
-                    Value = category.CategoryId.ToString(),
-                    Selected = category == selectedCategory,
-                };
-                ViewBag.TopicCategories = CategoryItems;
+            List<SelectListItem> CategoryItems =
+                (from category in _context.Categories
+                 select new SelectListItem
+                 {
+                     Text = category.CategoryName.ToString(),
+                     Value = category.CategoryId.ToString(),
+                 }
+                 ).ToList();
+            return CategoryItems;
         }
         // GET: Topics/Edit/5
         public async Task<IActionResult> Edit(int? id)

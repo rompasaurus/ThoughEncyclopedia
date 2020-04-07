@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,8 +14,8 @@ namespace ThoughtEncyclopedia.Models
         public int TopicID { get; set; }
         public int ParentID { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.Now;
-        [ConcurrencyCheck]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        //[ConcurrencyCheck]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateModified { get; set; } = DateTime.Now;
         public String Title { get; set; }
         public int UpvoteCount { get; set; } = 0;
@@ -25,9 +26,8 @@ namespace ThoughtEncyclopedia.Models
         [Required]
         public ApplicationUser User { get; set; }
         [Required]
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
         public int ViewCount { get; set; } = 0;
-
 
     }
 }
