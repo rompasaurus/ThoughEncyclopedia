@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ThoughtEncyclopedia.Migrations
 {
-    public partial class initialCreate : Migration
+    public partial class dbInitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,11 +39,7 @@ namespace ThoughtEncyclopedia.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false),
-                    UserId = table.Column<int>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true)
+                    AccessFailedCount = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -174,7 +170,7 @@ namespace ThoughtEncyclopedia.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Topic",
+                name: "Topics",
                 columns: table => new
                 {
                     TopicID = table.Column<int>(nullable: false)
@@ -194,15 +190,15 @@ namespace ThoughtEncyclopedia.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Topic", x => x.TopicID);
+                    table.PrimaryKey("PK_Topics", x => x.TopicID);
                     table.ForeignKey(
-                        name: "FK_Topic_Categories_CategoryId",
+                        name: "FK_Topics_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Topic_AspNetUsers_UserId",
+                        name: "FK_Topics_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -229,9 +225,9 @@ namespace ThoughtEncyclopedia.Migrations
                 {
                     table.PrimaryKey("PK_Thoughts", x => x.ThoughtId);
                     table.ForeignKey(
-                        name: "FK_Thoughts_Topic_TopicID",
+                        name: "FK_Thoughts_Topics_TopicID",
                         column: x => x.TopicID,
-                        principalTable: "Topic",
+                        principalTable: "Topics",
                         principalColumn: "TopicID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -275,9 +271,9 @@ namespace ThoughtEncyclopedia.Migrations
                         principalColumn: "ThoughtId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Comments_Topic_TopicID",
+                        name: "FK_Comments_Topics_TopicID",
                         column: x => x.TopicID,
-                        principalTable: "Topic",
+                        principalTable: "Topics",
                         principalColumn: "TopicID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -358,13 +354,13 @@ namespace ThoughtEncyclopedia.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Topic_CategoryId",
-                table: "Topic",
+                name: "IX_Topics_CategoryId",
+                table: "Topics",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Topic_UserId",
-                table: "Topic",
+                name: "IX_Topics_UserId",
+                table: "Topics",
                 column: "UserId");
         }
 
@@ -395,7 +391,7 @@ namespace ThoughtEncyclopedia.Migrations
                 name: "Thoughts");
 
             migrationBuilder.DropTable(
-                name: "Topic");
+                name: "Topics");
 
             migrationBuilder.DropTable(
                 name: "Categories");

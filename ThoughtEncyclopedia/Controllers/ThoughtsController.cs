@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using ThoughtEncyclopedia.Data;
 using ThoughtEncyclopedia.Models;
 
@@ -13,10 +15,14 @@ namespace ThoughtEncyclopedia.Controllers
     public class ThoughtsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly ILogger _log;
 
-        public ThoughtsController(ApplicationDbContext context)
+        public ThoughtsController(ApplicationDbContext context, UserManager<IdentityUser> um, ILogger log)
         {
             _context = context;
+            _userManager = um;
+            _log = log;
         }
 
         // GET: Thoughts
@@ -42,11 +48,29 @@ namespace ThoughtEncyclopedia.Controllers
 
             return View(thought);
         }
-
-        // GET: Thoughts/Create
-        public IActionResult Create()
+        //Maps the categories available to the user insied a SelectListItem allows Dropdown to be created
+        private List<SelectListItem> GetCategoryOptions(string userID)
         {
-            return View();
+            List<SelectListItem> TopicItems =
+                (from topic in _context.Topics.Include(u => u.User)
+                 where topic.User.Id == userID
+                 select new SelectListItem
+                 {
+                     Text = topic.Title.ToString(),
+                     Value = topic.TopicID.ToString(),
+                 }
+                 ).ToList();
+            return TopicItems;
+        }
+
+        //Populates the Topics established by the user into the thoughtview model and presents it to the create page allowing for a dropdown to be created
+        public async Task<IActionResult> CreateAsync()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            string userId = user.Id;
+            ThoughtView tv = new ThoughtView();
+            tv.Topics = GetCategoryOptions(userId);
+            return View(tv);
         }
 
         // POST: Thoughts/Create
@@ -54,15 +78,22 @@ namespace ThoughtEncyclopedia.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ThoughtId,ContentText,DateCreated,DateModified,ViewCount,UpvoteCount,DownvoteCount,LikeCount")] Thought thought)
+        public async Task<IActionResult> Create([Bind("ThoughtId,ContentText,TopicId")] ThoughtView tv)
         {
             if (ModelState.IsValid)
             {
+                Thought thought = new Thought 
+                { 
+                    ContentText = tv.ContentText, 
+                    Topic = _context.Topics.Find(tv.TopicId),
+                    User= await _userManager.GetUserAsync(User)
+                };
+                _log.LogInformation("\nSaving Thought data as... \n User: {0} \n Text: {1} \n Topic: {2} \n Category: {3}", thought.User.UserName, thought.ContentText, thought.Topic);
                 _context.Add(thought);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(thought);
+            return View(tv);
         }
 
         // GET: Thoughts/Edit/5

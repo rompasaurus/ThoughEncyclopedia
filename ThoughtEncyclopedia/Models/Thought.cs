@@ -14,13 +14,13 @@ namespace ThoughtEncyclopedia.Models
         public int ThoughtId { get; set; }
         public string ContentText { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.Now;
-        [ConcurrencyCheck]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        //[ConcurrencyCheck]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateModified { get; set; } = DateTime.Now;
-        public int ViewCount { get; set; }
-        public int UpvoteCount { get; set; }
-        public int DownvoteCount { get; set; }
-        public int LikeCount { get; set; }
+        public int ViewCount { get; set; } = 0;
+        public int UpvoteCount { get; set; } = 0;
+        public int DownvoteCount { get; set; } = 0;
+        public int LikeCount { get; set; } = 0;
         public IdentityUser User { get; set; }
         public Topic Topic { get; set; }
     }

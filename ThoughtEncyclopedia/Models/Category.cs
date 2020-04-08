@@ -22,8 +22,8 @@ namespace ThoughtEncyclopedia.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime DateCreated { get; set; } = DateTime.Now;
 
-        [ConcurrencyCheck]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        //[ConcurrencyCheck]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateModified { get; set; } = DateTime.Now;
 
         //The Default of a Category will be set to 0 indicating that the topic contents will be private

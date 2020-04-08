@@ -32,9 +32,15 @@ namespace ThoughtEncyclopedia
             }
             host.Run();
         }
-
+        //Cnnfigure Ilogger and passed the providers 
+        //Following example listed in https://www.tutorialsteacher.com/core/aspnet-core-logging
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureLogging(logBuilder =>
+                {
+                    logBuilder.AddConsole();
+                    logBuilder.AddTraceSource("Information, ActivityTracing");
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

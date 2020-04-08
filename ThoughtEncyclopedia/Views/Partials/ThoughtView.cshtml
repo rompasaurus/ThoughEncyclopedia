@@ -10,15 +10,15 @@
         <div class="thought_snippet">
             
              <h3 class="topic_content"><a asp-controller="Topics" asp-action="Details" asp-route-id="@item.Topic.TopicID">@Html.DisplayFor(modelItem => item.Topic.Title):</a></h3>
-             <p style="margin-left:25px; margin-right:50px;"  class="thought_content"><a asp-controller="Thought" asp-action="Details" asp-route-id="@item.ThoughtId"> @Html.DisplayFor(modelItem => item.ContentText)</a></p>
+             <p style="margin-left:25px; margin-right:50px;"  class="thought_content"><a asp-controller="Thoughts" asp-action="Details" asp-route-id="@item.ThoughtId"> @Html.DisplayFor(modelItem => item.ContentText)</a></p>
             
-            <a asp-action="Edit" asp-route-id="@item.ThoughtId">Edit</a>
-            <a asp-action="Details" asp-route-id="@item.ThoughtId">Detail</a>
-            <a asp-action="Delete" asp-route-id="@item.ThoughtId">Delete</a>
+            <a asp-controller="Thoughts" asp-action="Edit" asp-route-id="@item.ThoughtId">Edit</a>
+            <a asp-controller="Thoughts" asp-action="Details" asp-route-id="@item.ThoughtId">Detail</a>
+            <a asp-controller="Thoughts" asp-action="Delete" asp-route-id="@item.ThoughtId">Delete</a>
         </div>
             }
         
         <p>
-            <a asp-action="Create">Add a Thought</a>
+            <a asp-controller="Thoughts" asp-action="Create">Add a Thought</a>
         </p>
     </div>

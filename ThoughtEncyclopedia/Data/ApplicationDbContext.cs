@@ -21,7 +21,7 @@ namespace ThoughtEncyclopedia.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Topic>().ToTable("Topic");
+            modelBuilder.Entity<Topic>().ToTable("Topics");
             modelBuilder.Entity<Thought>().ToTable("Thoughts");
             modelBuilder.Entity<Category>().ToTable("Categories");
             modelBuilder.Entity<Comment>().ToTable("Comments");

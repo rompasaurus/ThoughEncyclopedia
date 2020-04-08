@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using ThoughtEncyclopedia.Data;
 using ThoughtEncyclopedia.Models;
 
@@ -15,11 +16,14 @@ namespace ThoughtEncyclopedia.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
+        //Ilogger cannot be of generic type when passed as DI needs a ClassnName as the type
+        private readonly ILogger<TopicsController> _log;
 
-        public TopicsController(ApplicationDbContext context, UserManager<IdentityUser> um)
+        public TopicsController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager<IdentityUser> um, ILogger<TopicsController> log)
         {
             _context = context;
             _userManager = um;
+            _log = log;
         }
 
         // GET: Topics
@@ -68,10 +72,10 @@ namespace ThoughtEncyclopedia.Controllers
                 {
                     Title = topicView.Title,
                     Description = topicView.Description,
-                    User = (ApplicationUser)await _userManager.GetUserAsync(User),
+                    User = await _userManager.GetUserAsync(User),
                     Category = _context.Categories.Find(topicView.CategoryId)
                 };
-                    
+                _log.LogInformation("\nSaving topic data as... \n User: {0} \n Description: {1} \n Title: {2} \n Category: {3}", topic.User.UserName, topic.Description,topic.Title, topic.Category);
                 _context.Add(topic);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

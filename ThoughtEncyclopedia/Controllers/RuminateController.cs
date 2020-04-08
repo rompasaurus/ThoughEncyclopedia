@@ -28,7 +28,6 @@ namespace ThoughtEncyclopedia.Controllers
 
                 var user = await _userManager.GetUserAsync(User);
                 string currentUserId = user.Id;// User.Identity.GetUserId();
-                Console.WriteLine(currentUserId);
                 ViewData["Title"] = "Ruminations";
                 var Thoughts = from thought in _context.Thoughts.Include(u => u.User).Include(t => t.Topic)
                                where thought.User.Id == currentUserId

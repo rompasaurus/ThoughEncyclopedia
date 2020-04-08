@@ -24,7 +24,7 @@ namespace ThoughtEncyclopedia.Models
         public int KnowlegeTypeID { get; set; } = 0;
         public String Description { get; set; }
         [Required]
-        public ApplicationUser User { get; set; }
+        public IdentityUser User { get; set; }
         [Required]
         public virtual Category Category { get; set; }
         public int ViewCount { get; set; } = 0;
