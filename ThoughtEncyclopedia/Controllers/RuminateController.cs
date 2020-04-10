@@ -37,6 +37,7 @@ namespace ThoughtEncyclopedia.Controllers
                              select topic;
                 ViewData["Thoughts"] = Thoughts;
                 ViewData["Topics"] = Topics;
+            //comment here
                 var currentUser = _context.Users.FirstOrDefault(x => x.Id == currentUserId);
 
 
