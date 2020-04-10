@@ -55,6 +55,10 @@ namespace ThoughtEncyclopedia.Controllers
         {
             var tpc = new TopicView();
             tpc.Categories = GetCategoryOptions();
+            if (tpc.Categories == null)
+            {
+                return NotFound("No Categories found");
+            }
             return View(tpc);
         }
 
@@ -86,6 +90,8 @@ namespace ThoughtEncyclopedia.Controllers
         //Maps the categories available to the user insied a SelectListItem allows Dropdown to be created
         private List<SelectListItem> GetCategoryOptions()
         {
+            try
+            {
             List<SelectListItem> CategoryItems =
                 (from category in _context.Categories
                  select new SelectListItem
@@ -95,6 +101,11 @@ namespace ThoughtEncyclopedia.Controllers
                  }
                  ).ToList();
             return CategoryItems;
+            }catch(Exception ex)
+            {
+                _log.LogError("Exception occured pulling categories from db: " + ex.InnerException);
+            }
+            return null;
         }
         // GET: Topics/Edit/5
         public async Task<IActionResult> Edit(int? id)

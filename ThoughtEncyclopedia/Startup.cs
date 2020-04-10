@@ -52,6 +52,9 @@ namespace ThoughtEncyclopedia
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            //https://nblumhardt.com/2016/10/aspnet-core-file-logger/
+            //Serilog feature to output Ilogger data to a txt file
+            loggerFactory.AddFile("Logs/ThoughtEncyclopediaLogData-{Date}.txt");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

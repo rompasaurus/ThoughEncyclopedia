@@ -10,8 +10,8 @@ using ThoughtEncyclopedia.Data;
 namespace ThoughtEncyclopedia.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200408193511_dbInitial")]
-    partial class dbInitial
+    [Migration("20200409124641_initialcommit")]
+    partial class initialcommit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

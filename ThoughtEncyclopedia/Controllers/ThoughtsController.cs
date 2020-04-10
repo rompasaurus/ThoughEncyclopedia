@@ -18,7 +18,7 @@ namespace ThoughtEncyclopedia.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger _log;
 
-        public ThoughtsController(ApplicationDbContext context, UserManager<IdentityUser> um, ILogger log)
+        public ThoughtsController(ApplicationDbContext context, UserManager<IdentityUser> um, ILogger<ThoughtsController> log)
         {
             _context = context;
             _userManager = um;
@@ -88,7 +88,7 @@ namespace ThoughtEncyclopedia.Controllers
                     Topic = _context.Topics.Find(tv.TopicId),
                     User= await _userManager.GetUserAsync(User)
                 };
-                _log.LogInformation("\nSaving Thought data as... \n User: {0} \n Text: {1} \n Topic: {2} \n Category: {3}", thought.User.UserName, thought.ContentText, thought.Topic);
+                _log.LogInformation("\nSaving Thought data as... \n User: {0} \n Text: {1} \n Topic: {2}", thought.User.UserName, thought.ContentText, thought.Topic);
                 _context.Add(thought);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
